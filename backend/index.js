@@ -5,11 +5,22 @@ dotenv.config()
 import Connection from './database/db.js';
 import DefaultData from './default.js';
 
+import Router from './routes/route.js';
+
+import cors from 'cors';
+import bodyParser from 'body-parser';
+
 DefaultData
 
 ; // ✅ Load environment variables from .env
 
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json({extended:true}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.json()); // ✅ Needed to parse JSON
+app.use('/',Router)
 const PORT = 8000;
 
 const USERNAME = process.env.DB_USERNAME;
