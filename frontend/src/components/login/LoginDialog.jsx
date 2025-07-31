@@ -58,6 +58,14 @@ const CreateAccount = styled(Typography)`
   cursor: pointer;
 `;
 
+const Error = styled(Typography)`
+    font-size: 10px;
+    color: #ff6161;
+    line-height: 0;
+    margin-top: 10px;
+    font-weight:600;
+`
+
 const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -104,10 +112,12 @@ const LoginDialog = ({ open, setOpen }) => {
      const [account, toggleAccount] = useState(accountInitialValues.login)
      const [signup, setSignup] = useState(signupInitialValues);
      const {setAccount} = useContext(DataContext);
-     const [login, setLogin] = useState(loginInitialValues)
+     const [login, setLogin] = useState(loginInitialValues);
+     const [error, setError] = useState(false)
   const handleClose = () => {
     setOpen(false);
     toggleAccount(accountInitialValues.login)
+    setError(false)
   };
 
   const toggleSignUp = () => {
@@ -137,6 +147,13 @@ const LoginDialog = ({ open, setOpen }) => {
 
   const loginUser = async() => {
     let response = await authenticateLogin(login);
+    console.log(response);
+    if(response.status === 200){
+        handleClose();
+        setAccount(response.data.data.firstname)
+    } else{
+            setError(true)
+    }
 
   }
   return (
@@ -156,8 +173,9 @@ const LoginDialog = ({ open, setOpen }) => {
           </Image>
           {account.view ==='login' ?
           <Wrapper>
-            <TextField variant="standard"  onChange={(e) => onValueChange(e)} name='username' label="Enter Email/Mobile No" fullWidth />
-            <TextField variant="standard" onChange={(e) => onValueChange(e)} name='password' label="Enter Password" fullWidth />
+          
+            <TextField variant="standard"  onChange={(e) => onValueChange(e)} name='username' label="Enter Username" fullWidth />
+           {error &&  <Error>Please enter valid username or password</Error>}            <TextField variant="standard" onChange={(e) => onValueChange(e)} name='password' label="Enter Password" fullWidth />
             <Text>
               By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.
             </Text>
@@ -170,6 +188,7 @@ const LoginDialog = ({ open, setOpen }) => {
           :
           <Wrapper>
             <TextField variant="standard" onChange={(e) => onInputChange(e)} name='firstname' label="Enter FirstName" fullWidth />
+           
             <TextField variant="standard" onChange={(e) => onInputChange(e)} name='lastname' label="Enter LastName" fullWidth />
              <TextField variant="standard" onChange={(e) => onInputChange(e)} name='username' label="Enter Username" fullWidth />
               <TextField variant="standard" onChange={(e) => onInputChange(e)} name='email' label="Enter Email" fullWidth />
