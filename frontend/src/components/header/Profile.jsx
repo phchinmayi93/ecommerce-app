@@ -12,7 +12,7 @@ const  Logout = styled(Typography)`
     font-size: 14px;
     margin-left: 20px;
 `
-const Profile = ({ account }) => {
+const Profile = ({ account, setAccount }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -23,10 +23,14 @@ const Profile = ({ account }) => {
     setAnchorEl(null);
   };
 
+  const logoutUser =() =>{
+    setAccount('');
+  }
+
   return (
     <>
       <Box onClick={handleClick} style={{ cursor: 'pointer' }}>
-        <Typography style={{ marginTop: 2 }}>{account}</Typography>
+        <Typography style={{ marginTop: 2 , cursor:'pointer'}}>{account}</Typography>
       </Box>
 
       <Component
@@ -34,7 +38,8 @@ const Profile = ({ account }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}><PowerSettingsNewIcon  color="primary" fontSize="small"/><Logout>Logout</Logout></MenuItem>
+        <MenuItem onClick={()=>{handleClose(); logoutUser();}}>
+        <PowerSettingsNewIcon  color="primary" fontSize="small"/><Logout>Logout</Logout></MenuItem>
        
       </Component>
     </>
