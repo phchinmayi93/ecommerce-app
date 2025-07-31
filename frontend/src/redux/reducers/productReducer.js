@@ -1,25 +1,36 @@
-// src/redux/reducers/productReducer.js
+import {
+  GET_PRODUCTS_REQUEST,
+  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_FAIL
+} from '../constants/productConstant';
 
-// Define an initial state that is NOT undefined
-const initialState = {
-  items: [],
-  loading: false,
-  error: null,
-};
+// const initialState = {
+//   products: [],
+//   loading: false,
+//   error: null
+// };
 
 const getProductsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_PRODUCTS_START':
-      return { ...state, loading: true, error: null };
+    case GET_PRODUCTS_REQUEST:
+      return { ...state, loading: true };
 
-    case 'FETCH_PRODUCTS_SUCCESS':
-      return { ...state, loading: false, items: action.payload };
+    case GET_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: action.payload
+      };
 
-    case 'FETCH_PRODUCTS_FAILURE':
-      return { ...state, loading: false, error: action.payload };
+    case GET_PRODUCTS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
 
     default:
-      return state; // <-- this makes sure the state is never undefined
+      return state;
   }
 };
 
