@@ -5,6 +5,8 @@ import {AppBar, Toolbar, Typography, styled, Box} from '@mui/material';
 //Components
 import Search from './Search';
 import CustomButtons from './CustomButtons';
+import { Link } from 'react-router-dom';
+
 
 const StyledHeader = styled(AppBar)`
     background-color: #2874f0;
@@ -13,9 +15,11 @@ const StyledHeader = styled(AppBar)`
      */
 `
 
-const Component = styled(Box)`
+const Component = styled(Link)`
     margin-left: 12%;
     line-height: 0;
+    text-decoration: none;
+    color: inherit;
    /* color: white;   
     font-size: 32px;
     font-weight: 600;           
@@ -51,7 +55,7 @@ const Header = () => {
     
        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', padding: '0 50px' }}>
 
-            <Component>
+            <Component to='/'>
             
                 <img src={logoURL} alt="logo" style={{width: 75}} />
                 <Box style={{display: 'flex', alignItems: 'center'}}>
@@ -63,6 +67,7 @@ const Header = () => {
             </Box>
     
  </Component>
+ 
  <Search />
            {/* <CustomButtonWrapper> */}
                 {/* CustomButtons component can be added here */}

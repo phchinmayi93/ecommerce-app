@@ -1,16 +1,18 @@
+
 import {
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_FAIL
 } from '../constants/productConstant';
+import { GET_PRODUCT_DETAILS_FAIL,GET_PRODUCT_DETAILS_RESET,GET_PRODUCT_DETAILS_SUCCESS,GET_PRODUCT_DETAILS_REQUEST } from '../constants/productConstant';
 
-// const initialState = {
-//   products: [],
-//   loading: false,
-//   error: null
-// };
+const initialState = {
+  products: [],
+  loading: false,
+  error: null
+};
 
-const getProductsReducer = (state = initialState, action) => {
+export const getProductsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS_REQUEST:
       return { ...state, loading: true };
@@ -34,4 +36,41 @@ const getProductsReducer = (state = initialState, action) => {
   }
 };
 
-export default getProductsReducer;
+
+
+
+
+export const getProductDetailsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PRODUCT_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case GET_PRODUCT_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        product: action.payload,
+        error: null,
+      };
+
+    case GET_PRODUCT_DETAILS_FAIL:
+      return {
+        loading: false,
+        product: {},
+        error: action.payload,
+      };
+
+    case GET_PRODUCT_DETAILS_RESET:
+      return {
+        ...initialState,
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+
