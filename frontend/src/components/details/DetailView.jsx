@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../redux/actions/productActions";
-import { Box, styled, CircularProgress } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import { Box, styled, CircularProgress,Grid } from "@mui/material";
+
 
 import ActionItems from "./ActionItems";
 import ProductDetail from "./ProductDetail";
@@ -13,12 +13,22 @@ const Component = styled(Box)`
   margin-top: 55px;
 `;
 
-const Container = styled(Grid)`
-  background: #ffffff;
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
+const Container = styled(Grid)(({theme}) => ({
+  background: '#ffffff',
+ display: 'flex',
+ width:'100%',
+ height:'100%',
+  
+  [theme.breakpoints.down('md')]: {
+    margin:0
+
+  }
+}));
+// const BannerImage = styled('img')({
+//   width: '100%',
+// // maxWidth:'628px',
+//   objectFit: 'cover',
+// });
 
 const RightContainer = styled(Grid)`
   margin-top: 50px;
@@ -73,11 +83,11 @@ const DetailView = () => {
     <Component>
       <Container container>
         {/* Left Container: Sized automatically based on content */}
-        <Grid lg="auto" md="auto" sm={12} xs={12}>
+        <Grid size={{ lg: 4 , md: 4 , sm:8,xs: 12,}}>
           <ActionItems product={product} />
         </Grid>
         {/* Right Container: Stretches to fill the remaining space */}
-        <RightContainer lg={true} md={true} sm={12} xs={12}>
+        <RightContainer size={{lg:8,  md: 8 ,sm:8,xs: 12}}>
           <ProductDetail product={product} />
         </RightContainer>
       </Container>

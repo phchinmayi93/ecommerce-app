@@ -19,8 +19,11 @@ const StyledBadge = styled(Badge)`
 `
 const ColumnText = styled(TableRow)`
     font-size:14px;
+     vertical-align: baseline;
     & > td {
         font-size: 14px;
+        margin-top: 10px;
+        border: none;
     }
 `
 
@@ -104,7 +107,7 @@ const adURL = 'https://rukminim1.flixcart.com/lockin/774/185/images/CCO__PP_2019
                 </ColumnText>
                 <ColumnText>
                 <TableCell style={{color:'#878787'}}>Description</TableCell>
-                <TableCell>No description</TableCell>
+                <TableCell>{product.description}</TableCell>
             </ColumnText>
             
         </TableBody>

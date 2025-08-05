@@ -9,7 +9,7 @@ const Wrapper = styled(Grid)`
 
 const BannerImage = styled('img')({
   width: '100%',
-maxWidth:'628px',
+// maxWidth:'628px',
   objectFit: 'cover',
 });
 
@@ -25,7 +25,7 @@ const MidSection = () => {
     <>
       <Wrapper container>
         {imageURL.map((image, index) => (
-          <Grid item lg={4} md={4} sm={12} xs={12} key={index}>
+          <Grid size={{ lg:4, md:4 ,xs:12, sm:12 }} key={index}>
             <BannerImage src={image} alt={`banner-${index}`} />
           </Grid>
         ))}

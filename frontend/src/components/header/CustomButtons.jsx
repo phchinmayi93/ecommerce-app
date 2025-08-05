@@ -10,31 +10,38 @@ import Profile from './Profile';
 
 
 
-const Wrapper= styled(Box)`
-
-  display: flex;
-  align-items: center;
+const Wrapper= styled(Box)(({theme})=>({
+    display: 'flex',
+  alignItems: 'center',
   /* padding: 0 20px; */
-  color: #fff;
-  height: 56px;
-  border-radius: 4px;
-  gap: 40px; /* space between children */
+  
+  height: '56px',
+  borderRadius: '4px',
+  gap: '40px',/* space between children */
 
 
-  margin-right: 250px;   /* ✅ Removes extra space */
+  marginRight: '250px',  /* ✅ Removes extra space */
 
-  & > button,
-  & > p,
-  & > div {
-    font-size: 14px;
+ ' & > *': {
+    fontSize: '14px'
+  },
+  [theme.breakpoints.down('md')]:{
+    display:'block'
   }
-`;
+
+}))
 
 
 
-const Container = styled(Box)`
-    display: flex;  
-    `
+
+
+
+const Container = styled(Box)(({theme})=>({
+display: 'flex',
+[theme.breakpoints.down('md')]:{
+  display:'block'
+}
+}))
 
 const LoginButton = styled(Button)`
     background-color: #fff;     
@@ -77,7 +84,7 @@ const CustomButtons = () => {
       <Typography>More</Typography>
 
       <Container>
-        <ShoppingCartIcon style={{ color: '#fff' }} />
+        <ShoppingCartIcon  />
         <Typography>Cart</Typography>
       </Container>
       <LoginDialog  open= {open} setOpen={setOpen}/>
