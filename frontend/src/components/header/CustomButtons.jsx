@@ -1,12 +1,14 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useMemo } from 'react';
 
-import {Box , styled,Button, Typography} from '@mui/material';
+import {Box , styled,Button, Typography, Badge} from '@mui/material';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginDialog from '../login/LoginDialog';
 
 import { DataContext } from '../../context/DataProvider';
 import Profile from './Profile';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
@@ -36,8 +38,10 @@ const Wrapper= styled(Box)(({theme})=>({
 
 
 
-const Container = styled(Box)(({theme})=>({
+const Container = styled(Link)(({theme})=>({
 display: 'flex',
+textDecoration:'none',
+color:'inherit',
 [theme.breakpoints.down('md')]:{
   display:'block'
 }
@@ -67,6 +71,11 @@ const CustomButtons = () => {
   const [open, setOpen] = useState(false)
 
   const {account, setAccount} = useContext(DataContext);
+  const {cartItems} = useSelector(state => state.cart);
+   const totalQuantity = useMemo(() =>
+    cartItems.reduce((acc, item) => acc + item.quantity, 0), [cartItems]);
+
+  
 
   const openDialog = () => {
     setOpen(true);
@@ -83,9 +92,11 @@ const CustomButtons = () => {
       <Typography >Become a Seller</Typography>
       <Typography>More</Typography>
 
-      <Container>
+      <Container to='/cart'>
+      <Badge badgeContent={totalQuantity} color="secondary">
         <ShoppingCartIcon  />
-        <Typography>Cart</Typography>
+       </Badge>
+        <Typography style={{marginLeft:10}}>Cart</Typography>
       </Container>
       <LoginDialog  open= {open} setOpen={setOpen}/>
     </Wrapper>

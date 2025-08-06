@@ -1,14 +1,20 @@
 import { Box, styled, Typography } from '@mui/material';
 import { navData } from '../constants/data';
 
-const CommonWrapper = styled(Box)`
-   display: flex;
-  justify-content: space-between;
+const CommonWrapper = styled(Box)(({theme})=>({
+   display: 'flex',
+  justifyContent: 'space-between',
 
+  // background:'#fff' ,
+  margin: '40px 200px 0 200px',/* You can also reduce this if needed */
+  [theme.breakpoints.down('lg')]:{
+    margin:0
+  }
+
+}))
   
-  margin: 40px 200px 0 200px; /* You can also reduce this if needed */
   
-`
+
 
 const Container = styled(Box)`
   padding: 12px 8px;
